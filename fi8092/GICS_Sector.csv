@@ -1,0 +1,512 @@
+﻿Company Name,Ticker,GICS Sector
+Abbott Laboratories,ABT,Health Care
+AbbVie Inc,ABBV,Health Care
+Abercrombie & Fitch Co,ANF,Consumer Discretionary
+Acadia Healthcare Co Inc,ACHC,Health Care
+Activision Blizzard Inc,ATVI,Communication Services
+Adobe Inc,ADBE,Information Technology
+Advanced Micro Devices,AMD,Information Technology
+Aemetis Inc,AMTX,Energy
+Aflac Inc,AFL,Financials
+Air Canada,AC,Industrials
+Air Products & Chemicals Inc,APD,Materials
+Alibaba Group Holding Ltd,BABA,Consumer Discretionary
+Alimentation Couche-Tard Inc,ATD.B,Consumer Staples
+Allstate Corp,ALL,Financials
+Alphabet Inc,GOOG,Communication Services
+Aluminum Corporation of China Ltd,ACH,Materials
+Amazon.com Inc,AMZN,Consumer Discretionary
+Ambev SA,ABEV3,Consumer Staples
+AMC Entertainment Holdings,AMC,Communication Services
+American Airlines Group Inc,AAL,Industrials
+American Eagle Outfitters Inc,AEO,Consumer Discretionary
+American Electric Power Co Inc,AEP,Utilities
+American Express Co,AXP,Financials
+American Water Works Co Inc,AWK,Utilities
+Amgen Inc,AMGN,Health Care
+AMN Healthcare Services Inc,AMN,Health Care
+Anhui Conch Cement Co Ltd,00914,Materials
+Apple Inc,AAPL,Information Technology
+Aptiv PLC,APTV,Consumer Discretionary
+ArcBest Corp,ARCB,Industrials
+Arista Networks Inc,ANET,Information Technology
+Artisan Partners Asset Management Inc,APAM,Financials
+ASGN Inc,ASGN,Industrials
+Ashland Global Holdings Inc,ASH,Materials
+Asian Paints Ltd,500820,Materials
+Astra Microwave Products Ltd,532493,Information Technology
+AstraZeneca PLC,AZN,Health Care
+AT&T Inc,T,Communication Services
+Atacadao SA,CRFB3,Consumer Staples
+Atul Ltd,500027,Materials
+Aurobindo Pharma Ltd,524804,Health Care
+Aurora Cannabis Inc,ACB,Health Care
+Autozone Inc,AZO,Consumer Discretionary
+Aviva PLC,AV.,Financials
+Axis Bank Ltd,532215,Financials
+B3 SA - Brasil Bolsa Balcao,B3SA3,Financials
+Baidu Inc,BIDU,Communication Services
+Bajaj Auto Ltd,532977,Consumer Discretionary
+Bajaj Finserv Ltd,532978,Financials
+Banco BTG Pactual S.A.,BPAC11,Financials
+Banco do Brasil SA BB Brasil,BBAS3,Financials
+Banco Santander (Brasil) SA,SANB11,Financials
+Bank Bradesco SA,BBDC3,Financials
+Bank of America Corp,BAC,Financials
+Bank Of Ningbo Co Ltd,002142,Financials
+Bank of Nova Scotia,BNS,Financials
+Bank OZK,OZK,Financials
+Barclays PLC,BCS,Financials
+Barnes & Noble Education Inc,BNED,Consumer Discretionary
+Bata India Ltd,500043,Consumer Discretionary
+Baxter International Inc,BAX,Health Care
+BB Seguridade Participacoes SA,BBSE3,Financials
+BCE Inc,BCE,Communication Services
+Beacon Roofing Supply Inc,BECN,Industrials
+Bed Bath & Beyond Inc,BBBY,Consumer Discretionary
+Benefitfocus Inc,BNFT,Information Technology
+Berger Paints India Ltd,509480,Materials
+Best Buy Co Inc,BBY,Consumer Discretionary
+Bharat Heavy Electricals Ltd,500103,Industrials
+Bharti Airtel Ltd,532454,Communication Services
+BHP Group PLC,BHP,Materials
+Bill.com Holdings Inc,BILL,Information Technology
+Blackrock Inc,BLK,Financials
+Blackstone Inc,BX,Financials
+Boeing Co,BA,Industrials
+Bombardier Inc,BBD.B,Industrials
+BorgWarner Inc,BWA,Consumer Discretionary
+Bosch Ltd,500530,Consumer Discretionary
+Boyd Group Services Inc,BYD,Industrials
+BP PLC,BP,Energy
+BR Malls Participacoes SA,BRML3,Real Estate
+BRF SA,BRFS3,Consumer Staples
+Bristol-Myers Squibb Co,BMY,Health Care
+Broadcom Inc,AVGO,Information Technology
+Brookfield Asset Management,BAM,Financials
+BT Group PLC,BT.A,Communication Services
+Build-A-Bear Workshop Inc,BBW,Consumer Discretionary
+Bunzl PLC,BNZL,Industrials
+Burlington Stores Inc,BURL,Consumer Discretionary
+Caesars Entertainment Inc,CZR,Consumer Discretionary
+Cameco Corp,CCJ,Energy
+Campbell Soup Co,CPB,Consumer Staples
+Canada Goose Holdings Inc,GOOS,Consumer Discretionary
+Canadian National Railway Co,CNI,Industrials
+Canadian Natural Resources Ltd,CNQ,Energy
+Canadian Pacific Railway Ltd,CP,Industrials
+Canadian Utilities Ltd,CU,Utilities
+Canadian Western Bank,CWB,Financials
+Carclo PLC,CAR,Materials
+Cardiovascular Systems Inc,CSII,Health Care
+Cargojet Inc,CJT,Industrials
+CarMax Inc,KMX,Consumer Discretionary
+Carnival PLC,CCL,Consumer Discretionary
+Casey's General Stores Inc,CASY,Consumer Staples
+Catalyst Pharmaceuticals Inc,CPRX,Health Care
+Caterpillar Inc,CAT,Industrials
+CCR SA,CCRO3,Industrials
+Centene Corp,CNC,Health Care
+Centrais Eletricas Brasileiras SA,ELET3,Utilities
+Cheesecake Factory Inc,CAKE,Consumer Discretionary
+Chevron Corp,CVX,Energy
+China Automotive Systems Inc,CAAS,Consumer Discretionary
+China Construction Bank Corp,00939,Financials
+China Eastern Airlines Corp Ltd,CEA,Industrials
+China Finance Online Co Ltd,JRJC,Financials
+China Gas Holdings Ltd,00384,Utilities
+China Mobile Ltd,00941,Communication Services
+China Natural Resources Inc,CHNR,Materials
+China Petroleum & Chemical Corp,SNP,Energy
+China Southern Airlines Co Ltd,ZNH,Industrials
+China State Construction International Holdings Ltd,03311,Industrials
+China Tourism Group Duty Free Corp Ltd,601888,Consumer Discretionary
+China Vanke Co Ltd,000002,Real Estate
+China World Trade Center Co Ltd,600007,Real Estate
+China Yangtze Power Co Ltd,600900,Utilities
+China Yuchai International Ltd,CYD,Industrials
+Chipotle Mexican Grill Inc,CMG,Consumer Discretionary
+Cielo SA,CIEL3,Information Technology
+Cipla Ltd,500087,Health Care
+CISCO Systems Inc,CSCO,Information Technology
+CITIC Ltd,00267,Industrials
+Citigroup Inc,C,Financials
+City of London Investment Group PLC,CLIG,Financials
+Clearwater Paper Corp,CLW,Materials
+Coal India Ltd,533278,Energy
+Coca-Cola Co,KO,Consumer Staples
+Cognizant Technology Solutions Corp,CTSH,Information Technology
+Colgate-Palmolive Co,CL,Consumer Staples
+Comcast Corp,CMCSA,Communication Services
+Companhia De Saneamento Basico Do Estado De Sao Paulo,SBSP3,Utilities
+Companhia Siderurgica Nacional,CSNA3,Materials
+Compass Group PLC,CPG,Consumer Discretionary
+Constellation Software Inc,CSU,Information Technology
+Continental Resources Inc,CLR,Energy
+Corteva Inc,CTVA,Materials
+Cosan SA,CSAN3,Energy
+Costco Wholesale Corp,COST,Consumer Staples
+CPFL Energia S.A.,CPFE3,Utilities
+Credit Suisse Group AG,CS,Financials
+CVS Health Corp,CVS,Health Care
+Daily Journal Corp,DJCO,Communication Services
+Deere & Co,DE,Industrials
+Delta Air Lines Inc,DAL,Industrials
+Deutsche Bank AG,DB,Financials
+Diageo PLC,DEO,Consumer Staples
+Digital Realty Trust Inc,DLR,Real Estate
+Discover Financial Services,DFS,Financials
+discoverIE Group PLC,DSCV,Industrials
+Dollar General Corp,DG,Consumer Discretionary
+Dollar Tree Inc,DLTR,Consumer Discretionary
+Dollarama Inc,DOL,Consumer Discretionary
+Dominion Energy Inc,D,Utilities
+Dominos Pizza Inc,DOM,Consumer Discretionary
+Douglas Dynamics Inc,PLOW,Industrials
+Dr Reddy's Laboratories Ltd,500124,Health Care
+Dropbox Inc,DBX,Information Technology
+DXC Technology Co,DXC,Information Technology
+Eastman Chemical Co,EMN,Materials
+easyJet PLC,EZJ,Industrials
+eClerx Services Ltd,532927,Information Technology
+Embraer SA,EMBR3,Industrials
+Enbridge Inc,ENB,Energy
+Endeavor Group Holdings,EDR,Communication Services
+Endo International PLC,ENDP,Health Care
+Energy Transfer LP,ET,Energy
+Enghouse Systems Ltd,ENGH,Information Technology
+ENGIE Brasil Energia SA,EGIE3,Utilities
+Equatorial Energia SA,EQTL3,Utilities
+ETSY Inc,ETSY,Consumer Discretionary
+Experian PLC,EXPN,Industrials
+Extra Space Storage Inc,EXR,Real Estate
+Exxon Mobil Corp,XOM,Energy
+Facebook Inc,FB,Communication Services
+Fair Isaac Corp,FICO,Information Technology
+Fairfax Financial Holdings Ltd,FFH,Financials
+Ferguson PLC,FERG,Industrials
+FirstEnergy Corp,FE,Utilities
+FMC Corp,FMC,Materials
+Foot Locker Inc,FL,Consumer Discretionary
+Ford Motor Co,F,Consumer Discretionary
+Fortinet Inc,FTNT,Information Technology
+Fortis Inc,FTS,Utilities
+Foxconn Industrial Internet Co Ltd,601138,Information Technology
+Franklin Resources Inc,BEN,Financials
+Freeport-McMoRan Inc,FCX,Materials
+FTI Consulting Inc,FCN,Industrials
+Fuwei Films (Holdings) Co Ltd,FFHL,Materials
+GAIL (India) Ltd,532155,Utilities
+Gap Inc,GPS,Consumer Discretionary
+Garmin Ltd,GRMN,Consumer Discretionary
+General Dynamics Corp,GD,Industrials
+General Electric Co,GE,Industrials
+General Mills Inc,GIS,Consumer Staples
+General Motors Co,GM,Consumer Discretionary
+Genmab A/S,GMAB,Health Care
+Gibraltar Industries Inc,ROCK,Industrials
+Gilead Sciences Inc,GILD,Health Care
+Glacier Bancorp Inc,GBCI,Financials
+GlaxoSmithKline PLC,GSK,Health Care
+Glencore PLC,GLEN,Materials
+Globus Medical Inc,GMED,Health Care
+Godrej Agrovet Ltd,540743,Consumer Staples
+Godrej Consumer Products Ltd,532424,Consumer Staples
+Gogo Inc,GOGO,Communication Services
+Goldman Sachs Group Inc,GS,Financials
+Granules India Ltd,532482,Health Care
+Great Elm Group Inc,GEG,Health Care
+Great-West Lifeco Inc,GWO,Financials
+Groupon Inc,GRPN,Consumer Discretionary
+Grupo Aeroportuario del Pacifico SAB de CV Class B,GAPB,Industrials
+Gujarat Industries Power Co Ltd,517300,Utilities
+H&R Block Inc,HRB,Consumer Discretionary
+Hangzhou Hik-Vision Digital Technology Co Ltd,002415,Information Technology
+Harley-Davidson Inc,HOG,Consumer Discretionary
+Harvard Bioscience Inc,HBIO,Health Care
+Hasbro Inc,HAS,Consumer Discretionary
+HCL Technologies Ltd,532281,Information Technology
+HDFC Bank Ltd,500180,Financials
+Heartland Express Inc,HTLD,Industrials
+Hero MotoCorp Ltd,500182,Consumer Discretionary
+Hess Corp,HES,Energy
+Hibbett Inc,HIBB,Consumer Discretionary
+Hindalco Industries Ltd,500440,Materials
+Hindustan Unilever Ltd,500696,Consumer Staples
+Home Depot Inc,HD,Consumer Discretionary
+Honda Motor Co Ltd,HMC,Consumer Discretionary
+Hostelworld Group PLC,HSW,Consumer Discretionary
+Housing Development Finance Corp Ltd,500010,Financials
+HSBC Holdings PLC,HSBA,Financials
+Huaneng Power International Inc,HNP,Utilities
+Hyatt Hotels Corp,H,Consumer Discretionary
+Hypera SA,HYPE3,Health Care
+ICICI Bank Ltd,532174,Financials
+Illumina Inc,ILMN,Health Care
+Imax Corp,IMAX,Communication Services
+Infosys Ltd,500209,Information Technology
+Innospec Inc,IOSP,Materials
+INTEL Corp,INTC,Information Technology
+Intercontinental Exchange Inc,ICE,Financials
+InterContinental Hotels Group PLC,IHG,Consumer Discretionary
+IQVIA Holdings Inc,IQV,Health Care
+IRB Brasil Resseguros SA,IRBR3,Financials
+Iron Mountain Inc,IRM,Real Estate
+ITC Ltd,500875,Consumer Staples
+J&J Snack Foods Corp,JJSF,Consumer Staples
+JBS SA,JBSS3,Consumer Staples
+JetBlue Airways Corp,JBLU,Industrials
+Jiangsu Hengrui Pharmaceuticals Co Ltd,600276,Health Care
+Johnson & Johnson,JNJ,Health Care
+Johnson Matthey PLC,JMAT,Materials
+JPMorgan Chase & Co,JPM,Financials
+Jubilant Foodworks Ltd,533155,Consumer Discretionary
+Just Dial Ltd,535648,Communication Services
+Kaiser Aluminum Corp,KALU,Materials
+Kellogg Co,K,Consumer Staples
+Keurig Dr Pepper Inc,KDP,Consumer Staples
+KeyCorp,KEY,Financials
+Kinder Morgan Inc,KMI,Energy
+Kirkland Lake Gold Ltd,KL,Materials
+KKR & Co Inc,KKR,Financials
+Klabin SA,KLBN11,Materials
+Kotak Mahindra Bank Ltd,500247,Financials
+Kweichow Moutai Co Ltd,600519,Consumer Staples
+Lamprell PLC,LAM,Energy
+Lands' End Inc,LE,Consumer Discretionary
+Larsen & Toubro Ltd,500510,Industrials
+Las Vegas Sands Corp,LVS,Consumer Discretionary
+Lazard Ltd,LAZ,Financials
+LCI Industries Inc,LCII,Consumer Discretionary
+Lloyds Banking Group PLC,LLOY,Financials
+Localiza Rent A Car SA,RENT3,Industrials
+Lockheed Martin Corp,LMT,Industrials
+Loews Corp,L,Financials
+Lojas Renner SA,LREN3,Consumer Discretionary
+Lookers PLC,LOOK,Consumer Discretionary
+Lowe's Companies Inc,LOW,Consumer Discretionary
+Lululemon Athletica Inc,LULU,Consumer Discretionary
+Lyft Inc,LYFT,Industrials
+M Dias Branco SA Industria e Comercio de Alimentos,MDIA3,Consumer Staples
+M&T Bank Corp,MTB,Financials
+Macy's Inc,M,Consumer Discretionary
+Magazine Luiza SA,MGLU3,Consumer Discretionary
+Mahindra & Mahindra Ltd,500520,Consumer Discretionary
+Manhattan Associates Inc,MANH,Information Technology
+Marriott International Inc,MAR,Consumer Discretionary
+Maruti Suzuki India Ltd,532500,Consumer Discretionary
+Mastercard Inc,MA,Information Technology
+Match Group Inc,MTCH,Communication Services
+Mattel Inc,MAT,Consumer Discretionary
+Max Financial Services Ltd,500271,Financials
+McCormick & Co Inc,MKC,Consumer Staples
+McDonald's Corp,MCD,Consumer Discretionary
+McKesson Corp,MCK,Health Care
+Mediclinic International PLC,MDC,Health Care
+Meituan,03690,Consumer Discretionary
+Merck & Co Inc,MRK,Health Care
+Meta Materials Inc,MMAT,Information Technology
+MetLife Inc,MET,Financials
+Micro Focus International PLC,MCRO,Information Technology
+Microsoft Corp,MSFT,Information Technology
+Middlesex Water Co,MSEX,Utilities
+Midea Group Co Ltd,000333,Consumer Discretionary
+MindTree Ltd,532819,Information Technology
+Molson Coors Beverage Co,TAP,Consumer Staples
+Mondi PLC,MNDI,Materials
+Monster Beverage Corp,MNST,Consumer Staples
+Moody's Corporation,MCO,Financials
+Morgan Stanley,MS,Financials
+Movado Group Inc,MOV,Consumer Discretionary
+Multiplan Empreendimentos Imobiliarios SA,MULT3,Real Estate
+Myriad Genetics Inc,MYGN,Health Care
+National Beverage Corp,FIZZ,Consumer Staples
+National Fuel Gas Co,NFG,Utilities
+Natura & Co Holding SA,NTCO3,Consumer Staples
+Natural Gas Services Group Inc,NGS,Energy
+NatWest Group PLC,NWG,Financials
+Nestle India Ltd,500790,Consumer Staples
+NetEase Inc,NTES,Communication Services
+NETFLIX Inc,NFLX,Communication Services
+New Oriental Education & Technology Group Inc,EDU,Consumer Discretionary
+Next PLC,NXT,Consumer Discretionary
+NIIT Ltd,500304,Information Technology
+Nike Inc,NKE,Consumer Discretionary
+Northern Technologies International Corp,NTIC,Materials
+Northrop Grumman Corp,NOC,Industrials
+Norwegian Cruise Line Holdings Ltd,NCLH,Consumer Discretionary
+Notre Dame Intermedica Participacoes SA,GNDI3,Health Care
+NOV Inc,NOV,Energy
+Novartis AG,NVS,Health Care
+NTPC Ltd,532555,Utilities
+Nutrien Ltd,NTR,Materials
+NVIDIA Corp,NVDA,Information Technology
+NXP Semiconductors NV,NXPI,Information Technology
+Oil & Natural Gas Corp Ltd,500312,Energy
+Old National Bancorp,ONB,Financials
+On The Beach Group PLC,OTB,Consumer Discretionary
+ONEOK Inc,OKE,Energy
+Oppenheimer Holdings Inc,OPY,Financials
+Oracle Corp,ORCL,Information Technology
+O'Reilly Automotive Inc,ORLY,Consumer Discretionary
+PACCAR Inc,PCAR,Industrials
+Papa John's International Inc,PZZA,Consumer Discretionary
+PayPal Holdings Inc,PYPL,Information Technology
+Pearson PLC,PSON,Communication Services
+Peloton Interactive Inc,PTON,Consumer Discretionary
+PepsiCo Inc,PEP,Consumer Staples
+PetroChina Co Ltd,PTR,Energy
+Petroleo Brasileiro SA Petrobras,PETR3,Energy
+Pfizer Inc,PFE,Health Care
+PG&E Corp,PCG,Utilities
+Phillips 66,PSX,Energy
+Physicians Realty Trust,DOC,Real Estate
+Ping An Insurance (Group) Co. of China Ltd,02318,Financials
+Piramal Enterprises Ltd,500302,Financials
+Planet Fitness Inc,PLNT,Consumer Discretionary
+PNC Financial Services Group Inc,PNC,Financials
+Porto Seguro SA,PSSA3,Financials
+POSCO,PKX,Materials
+Power Grid Corp Of India Ltd,532898,Utilities
+Prestige Consumer Healthcare Inc,PBH,Health Care
+Price (T. ROWE) Group,TROW,Financials
+Procter & Gamble Co,PG,Consumer Staples
+Prudential Financial Inc,PRU,Financials
+Public Storage,PSA,Real Estate
+Quaker Chemical Corp,KWR,Materials
+QUALCOMM Inc,QCOM,Information Technology
+Raia Drogasil SA,RADL3,Consumer Staples
+Raytheon Technologies Corp,RTX,Industrials
+RBC Bearings Inc,ROLL,Industrials
+REC Ltd,532955,Financials
+Reckitt Benckiser Group PLC,RKT,Consumer Staples
+Regeneron Pharmaceuticals Inc,REGN,Health Care
+Regions Financial Corp,RF,Financials
+Reliance Industries Ltd,500325,Energy
+Restaurant Brands International Inc,QSR,Consumer Discretionary
+Revlon Inc,REV,Consumer Staples
+Rightmove Plc,RMV,Communication Services
+Rio Tinto PLC,RIO,Materials
+Ritchie Bros Auctioneers Inc,RBA,Industrials
+Rite Aid Corp,RAD,Consumer Staples
+Rogers Communications-CL B,RCI,Communication Services
+Rolls-Royce Holdings PLC,RR.,Industrials
+Royal Bank of Canada,RY,Financials
+Royal Dutch Shell PLC,RDSA,Energy
+Royal Gold Inc,RGLD,Materials
+Rumo SA,RAIL3,Industrials
+Sage Group (The) PLC,SGE,Information Technology
+Sainsbury (J) PLC,SBRY,Consumer Staples
+Salesforce Inc,CRM,Information Technology
+SAP SE,SAP,Information Technology
+Schroders PLC,SDR,Financials
+SEI Investments Co,SEIC,Financials
+Sempra Energy,SRE,Utilities
+Severn Trent PLC,SVT,Utilities
+Shanghai International Airport Co Ltd,600009,Industrials
+Shenzhen Mindray Bio-Medical Electronics Co Ltd,300760,Health Care
+Shopify Inc,SHOP,Information Technology
+Sirius XM Holdings Inc,SIRI,Communication Services
+SJVN Ltd,533206,Utilities
+SJW Group,SJW,Utilities
+SkyWest Inc,SKYW,Industrials
+Smith & Nephew PLC,SN.,Health Care
+Smith & Wesson Brands Inc,SWBI,Consumer Discretionary
+Smiths Group PLC,SMIN,Industrials
+Snap-on Inc,SNA,Industrials
+Snowflake Inc,SNOW,Information Technology
+Sohu.com Ltd,SOHU,Communication Services
+SONY Group Corporation,SONY,Consumer Discretionary
+Southern Co,SO,Utilities
+Southwest Airlines Co,LUV,Industrials
+Spirit Airlines Inc,SAVE,Industrials
+Spotify Technology SA,SPOT,Communication Services
+Sprouts Farmers Market Inc,SFM,Consumer Staples
+SSE PLC,SSE,Utilities
+Standard Chartered PLC,STAN,Financials
+Starbucks Corp,SBUX,Consumer Discretionary
+State Bank of India,500112,Financials
+Stitch Fix Inc,SFIX,Consumer Discretionary
+Sul America SA,SULA11,Financials
+Sun Pharmaceuticals Industries Ltd,524715,Health Care
+Suncor Energy Inc,SU,Energy
+Sunoco LP,SUN,Energy
+Suzano SA,SUZB3,Materials
+Sysco Corp,SYY,Consumer Staples
+Taiwan Semiconductor Manufacturing Co ,TSM,Information Technology
+TAL Education Group,TAL,Consumer Discretionary
+Target Corp,TGT,Consumer Discretionary
+Tata Consultancy Services Ltd,532540,Information Technology
+Tata Motors Ltd,500570,Consumer Discretionary
+Tata Power Co Ltd,500400,Utilities
+Tata Steel Ltd,500470,Materials
+TC Energy Corp,TRP,Energy
+Tech Mahindra Ltd,532755,Information Technology
+TELUS Corp,TU,Communication Services
+Tencent Holdings Ltd,00700,Communication Services
+Tesla Inc,TSLA,Consumer Discretionary
+Teva Pharmaceutical Industries Ltd,TEVA,Health Care
+Texas Instruments Inc,TXN,Information Technology
+Texas Roadhouse Inc,TXRH,Consumer Discretionary
+The Container Store Group Inc,TCS,Consumer Discretionary
+The Estee Lauder Companies Inc,EL,Consumer Staples
+The GEO Group Inc,GEO,Real Estate
+The Hershey Co,HSY,Consumer Staples
+The Middleby Corp,MIDD,Industrials
+The Walt Disney Co,DIS,Communication Services
+The Wendy's Co,WEN,Consumer Discretionary
+The York Water Co,YORW,Utilities
+The9 Ltd,NCTY,Communication Services
+Titan Co Ltd,500114,Consumer Discretionary
+Titan International Inc,TWI,Industrials
+TJX Companies Inc,TJX,Consumer Discretionary
+Tootsie Roll Industries Inc,TR,Consumer Staples
+Toyota Motor Corp,TM,Consumer Discretionary
+Treehouse Foods Inc,THS,Consumer Staples
+TREX Co Inc,TREX,Industrials
+Tullow Oil PLC,TLW,Energy
+Twitter Inc,TWTR,Communication Services
+Tyson Foods Inc,TSN,Consumer Staples
+Uber Technologies Inc,UBER,Industrials
+UBS Group AG,UBS,Financials
+UGI Corp,UGI,Utilities
+Ulta Beauty Inc,ULTA,Consumer Discretionary
+Ultrapar Participacoes SA,UGPA3,Energy
+UltraTech Cement Ltd,532538,Materials
+Under Armour Inc,UAA,Consumer Discretionary
+Unilever PLC,ULVR,Consumer Staples
+Unilever PLC,UL,Consumer Staples
+United Natural Foods Inc,UNFI,Consumer Staples
+United States Steel Corp,X,Materials
+United Utilities Group PLC,UU.,Utilities
+UnitedHealth Group Inc,UNH,Health Care
+Urban Outfitters Inc,URBN,Consumer Discretionary
+UTStarcom Holdings Corp,UTSI,Information Technology
+Vale SA,VALE3,Materials
+Vedanta Ltd,500295,Materials
+Veeva Systems Inc,VEEV,Health Care
+VEON Ltd,VEON,Communication Services
+Vera Bradley Inc,VRA,Consumer Discretionary
+Verisk Analytics Inc,VRSK,Industrials
+Verizon Communications Inc,VZ,Communication Services
+VF Corp,VFC,Consumer Discretionary
+Visa Inc,V,Information Technology
+Vodafone Group PLC,VOD,Communication Services
+Vyant Bio Inc,VYNT,Health Care
+Wabash National Corp,WNC,Industrials
+Walgreens Boots Alliance Inc,WBA,Consumer Staples
+Walmart Inc,WMT,Consumer Staples
+WD-40 Co,WDFC,Consumer Staples
+Weg SA,WEGE3,Industrials
+Wells Fargo & Co,WFC,Financials
+Whitbread PLC,WTB,Consumer Discretionary
+Williams-Sonoma Inc,WSM,Consumer Discretionary
+Wipro Ltd,507685,Information Technology
+Wuliangye Yibin Co Ltd,000858,Consumer Staples
+Wyndham Hotels & Resorts Inc,WH,Consumer Discretionary
+Wynnstay Group PLC,WYN,Consumer Staples
+Xerox Holdings Corp,XRX,Information Technology
+Yes Bank Ltd,532648,Financials
+Yum Brands Inc,YUM,Consumer Discretionary
+Zogenix Inc,ZGNX,Health Care
+ZTO Express (Cayman) Inc,ZTO,Industrials

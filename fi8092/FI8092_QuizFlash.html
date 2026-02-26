@@ -1,0 +1,986 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FI 8092 – AI & ML in Finance Quiz</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0d0f14;
+    --surface: #15181f;
+    --card: #1c2030;
+    --border: #2a2f42;
+    --accent: #6c8ef7;
+    --accent2: #a78bfa;
+    --correct: #34d399;
+    --wrong: #f87171;
+    --text: #e8eaf0;
+    --muted: #7b82a0;
+    --gold: #fbbf24;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+    background-image: radial-gradient(ellipse at 20% 50%, rgba(108,142,247,0.06) 0%, transparent 60%),
+                      radial-gradient(ellipse at 80% 20%, rgba(167,139,250,0.05) 0%, transparent 50%);
+  }
+
+  /* ── SCREENS ── */
+  .screen { display: none; }
+  .screen.active { display: flex; flex-direction: column; min-height: 100vh; }
+
+  /* ── WELCOME SCREEN ── */
+  #welcome {
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+  }
+  .hero { text-align: center; max-width: 700px; margin-bottom: 50px; }
+  .course-label {
+    font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 20px; font-weight: 500;
+  }
+  h1.title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.2rem, 5vw, 3.5rem);
+    font-weight: 900;
+    line-height: 1.1;
+    background: linear-gradient(135deg, #e8eaf0 30%, var(--accent2) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 16px;
+  }
+  .subtitle {
+    color: var(--muted); font-size: 1rem; font-weight: 300; line-height: 1.6;
+    margin-bottom: 40px;
+  }
+  .features {
+    display: flex; gap: 24px; justify-content: center; flex-wrap: wrap;
+    margin-bottom: 50px;
+  }
+  .feature {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 12px; padding: 12px 18px;
+    font-size: 0.8rem; color: var(--muted);
+    display: flex; align-items: center; gap: 8px;
+  }
+  .feature .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+
+  /* Chapter selection */
+  .chapter-section { width: 100%; max-width: 760px; }
+  .section-label {
+    font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--muted); margin-bottom: 20px; text-align: center;
+  }
+  .chapters-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 12px; margin-bottom: 28px;
+  }
+  .chapter-card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 14px; padding: 16px 18px;
+    cursor: pointer; transition: all 0.2s;
+    user-select: none;
+    position: relative; overflow: hidden;
+  }
+  .chapter-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+  .chapter-card.selected {
+    border-color: var(--accent);
+    background: rgba(108,142,247,0.12);
+  }
+  .chapter-card.selected::after {
+    content: '✓';
+    position: absolute; top: 10px; right: 14px;
+    color: var(--accent); font-size: 14px; font-weight: 600;
+  }
+  .chapter-num {
+    font-size: 10px; letter-spacing: 2px; color: var(--muted);
+    text-transform: uppercase; margin-bottom: 6px;
+  }
+  .chapter-name {
+    font-size: 0.88rem; font-weight: 500; line-height: 1.4; color: var(--text);
+  }
+  .chapter-count {
+    font-size: 0.75rem; color: var(--muted); margin-top: 6px;
+  }
+
+  .select-row {
+    display: flex; gap: 12px; justify-content: center; margin-bottom: 28px;
+  }
+  .btn-sm {
+    background: transparent; border: 1px solid var(--border);
+    color: var(--muted); padding: 8px 16px; border-radius: 8px;
+    cursor: pointer; font-size: 0.8rem; font-family: inherit;
+    transition: all 0.15s;
+  }
+  .btn-sm:hover { border-color: var(--accent); color: var(--accent); }
+
+  .start-btn {
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    color: white; border: none; padding: 16px 48px;
+    border-radius: 50px; font-size: 1rem; font-weight: 500;
+    font-family: inherit; cursor: pointer;
+    transition: all 0.2s; letter-spacing: 0.5px;
+    box-shadow: 0 4px 30px rgba(108,142,247,0.3);
+  }
+  .start-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 40px rgba(108,142,247,0.4); }
+  .start-btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+
+  /* ── QUIZ SCREEN ── */
+  #quiz {
+    padding: 0;
+    flex-direction: column;
+  }
+  .quiz-header {
+    background: var(--surface); border-bottom: 1px solid var(--border);
+    padding: 14px 28px;
+    display: flex; align-items: center; justify-content: space-between;
+    position: sticky; top: 0; z-index: 10;
+  }
+  .quiz-title { font-size: 0.9rem; font-weight: 500; color: var(--muted); }
+  .quiz-progress-text { font-size: 0.85rem; color: var(--muted); }
+  .progress-bar {
+    height: 3px; background: var(--border);
+    position: sticky; top: 57px; z-index: 10;
+  }
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    transition: width 0.4s ease;
+  }
+
+  .quiz-body {
+    flex: 1; padding: 40px 20px 60px;
+    display: flex; flex-direction: column; align-items: center;
+  }
+  .question-card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 20px; padding: 36px;
+    max-width: 740px; width: 100%;
+    margin-bottom: 24px;
+  }
+  .q-chapter-tag {
+    display: inline-block;
+    font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--accent); background: rgba(108,142,247,0.1);
+    padding: 4px 10px; border-radius: 20px; margin-bottom: 20px;
+  }
+  .question-text {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.25rem; line-height: 1.5;
+    margin-bottom: 28px; color: var(--text);
+  }
+  .options { display: flex; flex-direction: column; gap: 12px; }
+  .option {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 12px; padding: 15px 18px;
+    cursor: pointer; transition: all 0.15s;
+    display: flex; align-items: flex-start; gap: 14px;
+    font-size: 0.93rem; line-height: 1.5;
+  }
+  .option:hover:not(.disabled) { border-color: var(--accent); background: rgba(108,142,247,0.06); }
+  .option.correct { border-color: var(--correct); background: rgba(52,211,153,0.1); }
+  .option.wrong { border-color: var(--wrong); background: rgba(248,113,113,0.1); }
+  .option.disabled { cursor: default; }
+  .opt-letter {
+    flex-shrink: 0;
+    width: 28px; height: 28px; border-radius: 8px;
+    background: var(--border); display: flex; align-items: center;
+    justify-content: center; font-size: 0.8rem; font-weight: 600;
+    color: var(--muted); margin-top: 1px;
+  }
+  .option.correct .opt-letter { background: var(--correct); color: #000; }
+  .option.wrong .opt-letter { background: var(--wrong); color: #fff; }
+
+  .explanation {
+    margin-top: 20px; padding: 16px 18px;
+    background: rgba(108,142,247,0.08); border: 1px solid rgba(108,142,247,0.2);
+    border-radius: 12px; font-size: 0.875rem; line-height: 1.6; color: var(--muted);
+    display: none;
+  }
+  .explanation.show { display: block; }
+  .explanation strong { color: var(--accent); }
+
+  .nav-row {
+    display: flex; gap: 12px; justify-content: center;
+    max-width: 740px; width: 100%;
+  }
+  .nav-btn {
+    background: var(--card); border: 1px solid var(--border);
+    color: var(--text); padding: 12px 30px;
+    border-radius: 50px; font-size: 0.9rem; font-family: inherit;
+    cursor: pointer; transition: all 0.15s;
+  }
+  .nav-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .nav-btn.primary {
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    border: none; color: white;
+    box-shadow: 0 2px 20px rgba(108,142,247,0.3);
+  }
+  .nav-btn.primary:hover { transform: translateY(-1px); box-shadow: 0 4px 28px rgba(108,142,247,0.4); }
+
+  /* ── RESULTS SCREEN ── */
+  #results {
+    align-items: center; justify-content: center;
+    padding: 40px 20px;
+    text-align: center;
+  }
+  .results-card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 24px; padding: 50px 40px;
+    max-width: 640px; width: 100%;
+  }
+  .score-ring {
+    width: 140px; height: 140px; border-radius: 50%;
+    background: conic-gradient(var(--accent) 0deg, var(--accent2) var(--pct), var(--border) var(--pct));
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 24px;
+    position: relative;
+  }
+  .score-ring::after {
+    content: '';
+    width: 110px; height: 110px; border-radius: 50%;
+    background: var(--card);
+    position: absolute;
+  }
+  .score-num {
+    position: relative; z-index: 1;
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem; font-weight: 900;
+    background: linear-gradient(135deg, #e8eaf0, var(--accent));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .results-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem; font-weight: 700; margin-bottom: 10px;
+  }
+  .results-sub { color: var(--muted); font-size: 0.95rem; margin-bottom: 36px; }
+
+  .chapter-breakdown {
+    display: flex; flex-direction: column; gap: 10px;
+    margin-bottom: 36px; text-align: left;
+  }
+  .breakdown-row {
+    display: flex; align-items: center; gap: 12px;
+    padding: 12px 16px; background: var(--surface);
+    border-radius: 10px; border: 1px solid var(--border);
+  }
+  .breakdown-name { flex: 1; font-size: 0.85rem; color: var(--text); }
+  .breakdown-score {
+    font-size: 0.85rem; font-weight: 500; color: var(--muted);
+    white-space: nowrap;
+  }
+  .mini-bar { flex: 0 0 80px; height: 4px; background: var(--border); border-radius: 2px; }
+  .mini-fill { height: 100%; border-radius: 2px; background: linear-gradient(90deg, var(--accent), var(--accent2)); }
+
+  .results-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+
+  .badge {
+    display: inline-block;
+    font-size: 0.75rem; letter-spacing: 1px; text-transform: uppercase;
+    padding: 5px 12px; border-radius: 20px; font-weight: 500;
+    margin-bottom: 16px;
+  }
+  .badge.gold { background: rgba(251,191,36,0.15); color: var(--gold); }
+  .badge.silver { background: rgba(167,139,250,0.15); color: var(--accent2); }
+  .badge.bronze { background: rgba(108,142,247,0.15); color: var(--accent); }
+
+  /* ── MODE SELECTOR ── */
+  .mode-selector {
+    display: flex; gap: 12px; justify-content: center; margin-bottom: 36px;
+  }
+  .mode-btn {
+    background: var(--card); border: 2px solid var(--border);
+    color: var(--muted); padding: 12px 28px;
+    border-radius: 50px; font-size: 0.9rem; font-family: inherit;
+    cursor: pointer; transition: all 0.2s; font-weight: 500;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .mode-btn:hover { border-color: var(--accent); color: var(--text); }
+  .mode-btn.active {
+    border-color: var(--accent);
+    background: rgba(108,142,247,0.12);
+    color: var(--accent);
+    box-shadow: 0 0 20px rgba(108,142,247,0.15);
+  }
+  .mode-icon { font-size: 1rem; }
+
+  /* ── FLASHCARD SCREEN ── */
+  #flashcards {
+    padding: 0; flex-direction: column;
+  }
+  .fc-header {
+    background: var(--surface); border-bottom: 1px solid var(--border);
+    padding: 14px 28px;
+    display: flex; align-items: center; justify-content: space-between;
+    position: sticky; top: 0; z-index: 10;
+  }
+  .fc-title { font-size: 0.9rem; font-weight: 500; color: var(--muted); }
+  .fc-progress-text { font-size: 0.85rem; color: var(--muted); }
+
+  .fc-body {
+    flex: 1; padding: 40px 20px 60px;
+    display: flex; flex-direction: column; align-items: center;
+  }
+
+  /* Flip card container */
+  .flip-card-wrap {
+    width: 100%; max-width: 740px;
+    perspective: 1200px;
+    margin-bottom: 28px;
+    cursor: pointer;
+  }
+  .flip-card {
+    position: relative;
+    width: 100%;
+    min-height: 320px;
+    transform-style: preserve-3d;
+    transition: transform 0.55s cubic-bezier(0.4, 0.2, 0.2, 1);
+  }
+  .flip-card.flipped { transform: rotateY(180deg); }
+
+  .fc-face {
+    position: absolute; top: 0; left: 0; right: 0;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    border-radius: 20px;
+    padding: 40px;
+    min-height: 320px;
+    display: flex; flex-direction: column; justify-content: center;
+  }
+  .fc-front {
+    background: var(--card); border: 1px solid var(--border);
+  }
+  .fc-back {
+    background: linear-gradient(135deg, rgba(108,142,247,0.12), rgba(167,139,250,0.08));
+    border: 1px solid rgba(108,142,247,0.3);
+    transform: rotateY(180deg);
+  }
+
+  .fc-tap-hint {
+    font-size: 0.75rem; letter-spacing: 1.5px; text-transform: uppercase;
+    color: var(--muted); margin-bottom: 24px; text-align: center;
+    opacity: 0.7;
+  }
+  .fc-question {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem; line-height: 1.5;
+    text-align: center; color: var(--text);
+  }
+  .fc-chapter-tag {
+    display: inline-block;
+    font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--accent); background: rgba(108,142,247,0.1);
+    padding: 4px 10px; border-radius: 20px;
+    margin-bottom: 20px; align-self: center;
+  }
+  .fc-answer-label {
+    font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--accent2); margin-bottom: 16px; text-align: center;
+    font-weight: 500;
+  }
+  .fc-answer {
+    font-size: 1.05rem; line-height: 1.6; color: var(--text);
+    text-align: center; margin-bottom: 16px;
+    font-weight: 500;
+  }
+  .fc-explanation {
+    font-size: 0.85rem; line-height: 1.6; color: var(--muted);
+    text-align: center;
+    padding-top: 16px;
+    border-top: 1px solid rgba(108,142,247,0.2);
+    margin-top: 4px;
+  }
+
+  .fc-nav-row {
+    display: flex; gap: 12px; justify-content: center;
+    max-width: 740px; width: 100%;
+    align-items: center;
+  }
+  .fc-counter {
+    font-size: 0.85rem; color: var(--muted);
+    min-width: 80px; text-align: center;
+  }
+
+  .fc-flip-hint {
+    font-size: 0.8rem; color: var(--muted); text-align: center;
+    margin-bottom: 16px; opacity: 0.6;
+  }
+  .fc-flip-hint span { color: var(--accent); }
+
+  /* keyboard hint */
+  .kbd {
+    display: inline-block;
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 4px; padding: 1px 6px; font-size: 0.75rem;
+    color: var(--muted); font-family: monospace;
+  }
+</style>
+</head>
+<body>
+
+<!-- ══════════ WELCOME SCREEN ══════════ -->
+<div id="welcome" class="screen active">
+  <div class="hero">
+    <div class="course-label">FI 8092 · Manish Jha</div>
+    <h1 class="title">AI & Machine Learning<br>in Finance</h1>
+    <p class="subtitle">Practice quiz covering all 10 lectures.<br>Select the chapters you want to be quizzed on, then test your knowledge.</p>
+    <div class="features">
+      <div class="feature"><div class="dot"></div>Instant feedback</div>
+      <div class="feature"><div class="dot" style="background:var(--accent2)"></div>Detailed explanations</div>
+      <div class="feature"><div class="dot" style="background:var(--correct)"></div>Score breakdown by chapter</div>
+      <div class="feature"><div class="dot" style="background:var(--gold)"></div>Randomized order</div>
+    </div>
+  </div>
+
+  <div class="chapter-section">
+    <div class="section-label">Choose Your Chapters</div>
+    <div class="chapters-grid" id="chaptersGrid"></div>
+    <div class="select-row">
+      <button class="btn-sm" onclick="selectAll()">Select All</button>
+      <button class="btn-sm" onclick="clearAll()">Clear All</button>
+    </div>
+    <div style="text-align:center; margin-bottom:20px;">
+      <div class="mode-selector">
+        <button class="mode-btn active" id="modeQuiz" onclick="setMode('quiz')">
+          <span class="mode-icon">📝</span> Quiz Mode
+        </button>
+        <button class="mode-btn" id="modeFlash" onclick="setMode('flash')">
+          <span class="mode-icon">🃏</span> Flashcards
+        </button>
+      </div>
+      <button class="start-btn" id="startBtn" onclick="startSession()" disabled>Begin Session</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ QUIZ SCREEN ══════════ -->
+<div id="quiz" class="screen">
+  <div class="quiz-header">
+    <div class="quiz-title">FI 8092 Quiz</div>
+    <div class="quiz-progress-text" id="progressText">Question 1 of 40</div>
+  </div>
+  <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+  <div class="quiz-body">
+    <div class="question-card" id="questionCard">
+      <div class="q-chapter-tag" id="chapterTag"></div>
+      <div class="question-text" id="questionText"></div>
+      <div class="options" id="optionsContainer"></div>
+      <div class="explanation" id="explanationBox"></div>
+    </div>
+    <div class="nav-row">
+      <button class="nav-btn" onclick="finishEarly()">End Quiz</button>
+      <button class="nav-btn primary" id="nextBtn" onclick="nextQuestion()" style="display:none">Next →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ FLASHCARD SCREEN ══════════ -->
+<div id="flashcards" class="screen">
+  <div class="fc-header">
+    <div class="fc-title">FI 8092 Flashcards</div>
+    <div class="fc-progress-text" id="fcProgressText">Card 1 of 40</div>
+  </div>
+  <div class="progress-bar"><div class="progress-fill" id="fcProgressFill"></div></div>
+  <div class="fc-body">
+    <p class="fc-flip-hint">Click the card or press <span class="kbd">Space</span> to flip · <span class="kbd">←</span> <span class="kbd">→</span> to navigate</p>
+    <div class="flip-card-wrap" onclick="flipCard()">
+      <div class="flip-card" id="flipCard">
+        <div class="fc-face fc-front">
+          <div class="fc-chapter-tag" id="fcChapterTag"></div>
+          <div class="fc-tap-hint">QUESTION</div>
+          <div class="fc-question" id="fcQuestion"></div>
+        </div>
+        <div class="fc-face fc-back">
+          <div class="fc-answer-label">✓ ANSWER</div>
+          <div class="fc-answer" id="fcAnswer"></div>
+          <div class="fc-explanation" id="fcExplanation"></div>
+        </div>
+      </div>
+    </div>
+    <div class="fc-nav-row">
+      <button class="nav-btn" onclick="goHome()">← Home</button>
+      <button class="nav-btn" onclick="fcPrev()">‹ Prev</button>
+      <div class="fc-counter" id="fcCounter">1 / 40</div>
+      <button class="nav-btn primary" onclick="fcNext()">Next ›</button>
+      <button class="nav-btn" onclick="fcShuffle()">⇌ Shuffle</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ RESULTS SCREEN ══════════ -->
+<div id="results" class="screen">
+  <div class="results-card">
+    <div class="score-ring" id="scoreRing">
+      <div class="score-num" id="scoreNum"></div>
+    </div>
+    <div class="badge" id="badgeEl"></div>
+    <div class="results-title" id="resultsTitle"></div>
+    <div class="results-sub" id="resultsSub"></div>
+    <div class="chapter-breakdown" id="breakdownEl"></div>
+    <div class="results-btns">
+      <button class="nav-btn primary" onclick="retakeQuiz()">Retake Quiz</button>
+      <button class="nav-btn" onclick="goHome()">← Change Chapters</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ══════════════════════════════════════════
+//  QUESTION BANK
+// ══════════════════════════════════════════
+const CHAPTERS = [
+  { id: 'L01', name: 'Python, Libraries & Pandas', short: 'L01' },
+  { id: 'L02', name: 'Dimensionality Reduction – PCA', short: 'L02' },
+  { id: 'L03', name: 'Unsupervised Learning – k-Means', short: 'L03' },
+  { id: 'L04', name: 'Linear, Multi & Polynomial Regression', short: 'L04' },
+  { id: 'L05', name: 'Instance-Based Learning – k-NN', short: 'L05' },
+  { id: 'L06', name: 'Ensemble Methods, Decision Trees', short: 'L06' },
+  { id: 'L07', name: 'Web Scraping, RegEx, NLTK, EDGAR', short: 'L07' },
+  { id: 'L08', name: 'Neural Networks & Word2Vec', short: 'L08' },
+  { id: 'L09', name: 'AI, ChatGPT & APIs', short: 'L09' },
+  { id: 'L10', name: 'LLM Architecture, Prompting & Agents', short: 'L10' },
+];
+
+const ALL_QUESTIONS = [
+// ────────── L01 ──────────
+{chapter:'L01', q:"What is a variable in Python?", opts:["A function that performs calculations","A reference to a value stored in computer memory","A collection of methods that act on data","A blueprint for creating objects"], ans:1, exp:"A variable is a reference to a value stored in a computer's memory. Variables can hold different data types such as integers, floats, strings, and booleans."},
+{chapter:'L01', q:"What is the relationship between variables and objects in Python?", opts:["Variables and objects are completely separate entities","Objects are always smaller than variables","All variables are objects, though some objects can be referenced by multiple variables","Objects can only be created from classes, never from variables"], ans:2, exp:"In Python, ALL variables are objects. However, some objects can be defined by data referred to by multiple variables, meaning multiple variable names can point to the same object in memory."},
+{chapter:'L01', q:"In Python, what is a class?", opts:["A type of loop used for iteration","A collection of objects that share the same set of variables and methods","A single function that returns a value","A library used for data analysis"], ans:1, exp:"A class is a collection of objects that share the same set of variables/methods. The class definition provides a blueprint for all objects (instances) within it. Instances share the same variable names but NOT the same values."},
+{chapter:'L01', q:"What naming convention uses all lowercase words separated by underscores?", opts:["camelCase","PascalCase","snake_case","kebab-case"], ans:2, exp:"snake_case uses all lowercase letters with underscores between words (e.g., my_variable_name). camelCase starts with lowercase and capitalizes each subsequent word (e.g., myVariableName)."},
+{chapter:'L01', q:"What does the Pandas library primarily provide that NumPy does not?", opts:["Multi-dimensional array support","A 2D table object called DataFrame, similar to a spreadsheet","Machine learning algorithms for classification","Visualization capabilities like charts and graphs"], ans:1, exp:"While NumPy provides multi-dimensional arrays, Pandas provides a 2D table object called DataFrame (akin to a spreadsheet with column names and row labels). Pandas also adds tools for data manipulation like reshaping, merging, and sorting."},
+{chapter:'L01', q:"What does the .loc[] accessor in Pandas do?", opts:["Accesses rows by their integer index position","Accesses data using label-based indexing","Returns only the first N rows of a DataFrame","Filters columns based on data type"], ans:1, exp:".loc[] is label-based accessing — it returns rows/data based on their label. In contrast, .iloc[] is index-based (integer position) accessing. They often return the same result but behave differently when labels and positions differ."},
+{chapter:'L01', q:"Which Python library is specifically built for machine learning algorithms like classification, regression, and clustering?", opts:["NumPy","SciPy","Pandas","SciKit-Learn"], ans:3, exp:"SciKit-Learn (sklearn) provides machine learning algorithms including classification, regression, and clustering, as well as model validation tools. It is built on NumPy, SciPy, and matplotlib."},
+{chapter:'L01', q:"What does the groupby() function in Pandas allow you to do?", opts:["Sort the DataFrame in ascending order","Split data into groups and perform aggregate operations","Remove duplicate rows from the DataFrame","Merge two DataFrames on a common column"], ans:1, exp:"groupby() is used for the split-apply-combine pattern: you split data into groups based on some criteria, apply a function to each group independently, and then combine the results. It is commonly used with aggregate functions."},
+{chapter:'L01', q:"In a for loop using range(2, 10, 3), what values would the loop variable take?", opts:["2, 3, 4, 5, 6, 7, 8, 9","2, 5, 8","0, 3, 6, 9","2, 4, 6, 8, 10"], ans:1, exp:"range(start, stop, step) generates values starting at 2, incrementing by 3, and stopping before 10. So the values are 2, 5, 8."},
+{chapter:'L01', q:"What is the key difference between a for loop and a while loop?", opts:["For loops can only iterate over numbers; while loops handle all types","A for loop iterates for a specified number of times using an iterable; a while loop iterates as long as a Boolean condition is true","While loops are always faster than for loops in Python","For loops require a break statement to terminate; while loops do not"], ans:1, exp:"A for loop iterates over an iterable (list, range, string, etc.) for a defined number of steps. A while loop continues as long as a Boolean condition remains true, with the controlling variable defined and modified outside the loop header."},
+
+// ────────── L02 ──────────
+{chapter:'L02', q:"What is the primary goal of Principal Component Analysis (PCA)?", opts:["To select the most important original variables and discard the rest","To construct new characteristics (principal components) that summarize data effectively by finding linear combinations of original features","To cluster data points into homogeneous groups","To train a supervised model to predict a target variable"], ans:1, exp:"PCA does NOT select some features and discard others. Instead, it constructs new characteristics — linear combinations of the original features — that best summarize the data. The key goals are maximizing variation across observations and enabling reconstruction of the original data."},
+{chapter:'L02', q:"Why does PCA seek properties with strong differences across observations?", opts:["To minimize computational cost","Because properties where all observations look the same carry no useful information for distinguishing data points","To make the model easier to interpret","To avoid overfitting during training"], ans:1, exp:"PCA seeks properties with strong variation because features where all observations look the same (like the 'stillness of wine after pouring') are not useful for discriminating between data points. High variance = high information content."},
+{chapter:'L02', q:"What is a key limitation of PCA regarding the nature of the relationships it can capture?", opts:["PCA cannot handle datasets with more than 100 variables","PCA assumes linear relationships between variables, which may not always hold in financial datasets","PCA requires all variables to be categorical","PCA can only be applied to time-series data"], ans:1, exp:"PCA assumes linear relationships between variables. This is a significant limitation in finance, where relationships between assets and variables are often non-linear. Additionally, PCA is sensitive to scaling — variables must be standardized or results can be misleading."},
+{chapter:'L02', q:"What happens to interpretability when PCA is applied?", opts:["Interpretability always improves because fewer variables are used","Principal components are combinations of original variables, making them harder to interpret in financial contexts","PCA automatically labels each component with a meaningful economic name","Interpretability is unaffected since PCA retains the original variable names"], ans:1, exp:"A major con of PCA is Loss of Interpretability. The principal components are linear combinations of the original variables, making them abstract and harder to interpret, especially in finance where understanding asset relationships is critical."},
+{chapter:'L02', q:"In the sovereign yield example, if PC1 explains 58% of variance with heavy US and Germany loadings, what does PC1 most likely represent?", opts:["Emerging market risk premium","Asia-Pacific policy divergence","The global rate level driven by developed market economies","Exchange rate fluctuations between major currencies"], ans:2, exp:"According to the lecture, PC1 (58% variance) has heavy US and Germany loadings, indicating it captures the global DM (developed market) rate cycle — i.e., the overall global interest rate level. Analysts monitor this daily as the primary signal."},
+{chapter:'L02', q:"How does PCA benefit financial analysts who need to monitor hundreds of correlated yield series?", opts:["It eliminates all correlated assets from the portfolio","It reduces hundreds of correlated yield series into 2–3 interpretable factors, making signals clearer and actionable","It replaces human analysts with automated trading systems","It converts yield data into price data for easier comparison"], ans:1, exp:"PCA reduces 195+ sovereign yield series into 2–3 principal components that explain 80–90% of all variance. Analysts can then monitor just a handful of daily scores instead of hundreds of individual yields, enabling noise reduction and clearer, actionable signals."},
+{chapter:'L02', q:"What does 'dimensionality reduction' mean in the context of PCA?", opts:["Deleting rows with missing data from the dataset","Reducing the number of variables while retaining most of the original information","Shrinking the size of the dataset by removing outliers","Converting continuous variables to categorical ones"], ans:1, exp:"Dimensionality reduction means simplifying datasets by reducing the number of variables (dimensions) while retaining most of the original information. PCA accomplishes this by creating a smaller set of principal components that capture the majority of variance."},
+{chapter:'L02', q:"Why is PCA described as 'killing two birds with one stone'?", opts:["It can handle both regression and classification simultaneously","Maximizing variation across observations and maximizing reconstruction ability turn out to be equivalent objectives","It simultaneously reduces both training and test error","It works for both supervised and unsupervised tasks without modification"], ans:1, exp:"Surprisingly, the two aims of PCA — maximizing variation across observations AND being able to reconstruct the original data — are mathematically equivalent. So finding components that maximize variance automatically also finds components best suited for data reconstruction."},
+
+// ────────── L03 ──────────
+{chapter:'L03', q:"What type of clustering does k-means implement?", opts:["Hierarchical clustering — building a tree of nested clusters","Density-based clustering — grouping points by density","Partitional clustering — partitioning instances into exactly k non-overlapping clusters","Spectral clustering — using graph theory to identify communities"], ans:2, exp:"K-means is a partitional clustering algorithm. It partitions instances into exactly k non-overlapping clusters with a flat (non-hierarchical) structure. The user must specify k before running the algorithm."},
+{chapter:'L03', q:"What must the user specify before running k-means clustering?", opts:["The exact coordinates of each cluster center","The number of clusters k","The maximum number of data points per cluster","The distance metric to be used"], ans:1, exp:"One of the key requirements and weaknesses of k-means is that the user must specify k (the number of clusters) in advance. This is difficult in practice because the 'correct' number of clusters is often not known a priori."},
+{chapter:'L03', q:"What is the stopping criterion for k-means iteration?", opts:["When all data points are assigned to the same cluster","When the loss function exceeds a threshold","When there is no change in cluster assignments OR when a maximum number of iterations is reached","When each cluster has exactly the same number of data points"], ans:2, exp:"K-means iterates — calculating distances, assigning to nearest centroid, recalculating centroids — and stops based on convergence criteria: either when there is NO CHANGE in cluster assignments (convergence) or when a maximum iteration count is reached."},
+{chapter:'L03', q:"What is a centroid in k-means clustering?", opts:["The data point farthest from all other points in a cluster","The center point of a cluster, recalculated as the mean of all points assigned to that cluster","A boundary line separating two adjacent clusters","The first data point randomly selected to initialize a cluster"], ans:1, exp:"A centroid is the center of a cluster. In k-means, after each assignment step, centroids are recalculated as the mean position of all data points assigned to that cluster. The process iterates until convergence."},
+{chapter:'L03', q:"What is a significant weakness of k-means clustering?", opts:["It can only handle datasets with two variables","It requires labeled training data to function","The simple iterative approach can yield poor results, and it is difficult to determine the correct value of k","It cannot handle more than 1,000 data points"], ans:2, exp:"The lecture identifies two key weaknesses: (1) the method is 'often too simple → bad results' and (2) it is 'difficult to guess the correct k.' These make k-means unreliable when the true cluster structure is complex or the number of clusters is unknown."},
+{chapter:'L03', q:"What is a Voronoi diagram in the context of k-means?", opts:["A chart showing how the loss function decreases over iterations","A visualization of the regions of space closest to each centroid, illustrating cluster boundaries","A heatmap of pairwise distances between all data points","A graph showing the change in cluster sizes over time"], ans:1, exp:"In k-means, a Voronoi diagram visualizes the cluster regions — each region contains all points that are closer to one centroid than to any other. It clearly shows the decision boundaries between clusters."},
+
+// ────────── L04 ──────────
+{chapter:'L04', q:"What does 'fitting' or 'training' a linear regression model mean?", opts:["Visualizing the data in a scatter plot to identify trends","Choosing β₀ and β₁ to minimize the predictive errors (loss function) on the training data","Selecting the best variables to include in the model using domain knowledge","Evaluating the model on a held-out test set"], ans:1, exp:"Fitting or training a linear regression model means choosing the parameters β̂₀ and β̂₁ that minimize the loss function (typically MSE) on the training data. The process finds the line that best approximates the training observations."},
+{chapter:'L04', q:"What is overfitting in the context of regression?", opts:["The model has too few parameters to capture the trend in the data","The model fits meaningless patterns and noise in the training data, leading to poor generalization","The training MSE and test MSE are both very small","The model's predictions are always exactly equal to the training labels"], ans:1, exp:"Overfitting occurs when a model fits meaningless patterns and noise in the training data. While training error is low, the model generalizes poorly to new data, resulting in high test error. This is why evaluating on held-out test data is essential."},
+{chapter:'L04', q:"What is gradient descent?", opts:["A brute-force method that tries every possible combination of parameters","An algorithm that follows the negative gradient of the loss function iteratively to find the minimum","An analytical formula that directly computes the optimal parameters","A method that randomly samples parameters and selects the best one"], ans:1, exp:"Gradient Descent exploits the information in the gradient. Since the gradient points in the direction of steepest INCREASE, following the NEGATIVE gradient takes you toward the minimum. This iterative method eventually converges to the lowest point of the loss function."},
+{chapter:'L04', q:"What is Mean Squared Error (MSE) used for in regression?", opts:["To measure the total number of observations in the dataset","To aggregate residuals across the dataset by averaging the squared differences between predicted and actual values","To select the best features for the regression model","To determine whether the relationship between X and Y is linear"], ans:1, exp:"MSE (Mean Squared Error) is the loss function used in regression. It aggregates residuals by squaring each individual residual rᵢ = yᵢ − ŷᵢ and then averaging them. Squaring penalizes large errors more heavily and ensures all terms are positive."},
+{chapter:'L04', q:"What is a dummy variable (indicator variable) in regression?", opts:["A placeholder variable used during model development that is later removed","A numerical variable created to represent a qualitative predictor that takes two possible values (e.g., 0 or 1)","A variable that is always set to 1 to represent the intercept term","A random variable added to introduce noise into the model"], ans:1, exp:"When a qualitative predictor takes only two values, we create a dummy/indicator variable that takes on two numerical values (e.g., 0 for male, 1 for female). This allows the qualitative category to be incorporated into a regression equation."},
+{chapter:'L04', q:"What is 'one-hot encoding' used for in regression?", opts:["Converting continuous variables to categorical buckets","Creating multiple binary dummy variables when a qualitative predictor has more than two categories","Normalizing numerical variables to a 0–1 scale","Removing collinear variables from the feature set"], ans:1, exp:"When a qualitative predictor has more than two levels (e.g., ethnicity with Caucasian, Asian, African-American), a single dummy variable cannot represent all values. One-hot encoding creates multiple binary dummy variables, one for each category (minus one to avoid multicollinearity)."},
+{chapter:'L04', q:"What is the primary problem with a polynomial regression model of very high degree?", opts:["It will always underfit the training data","It overfits — it fits all the noisy data points rather than just the underlying trend","It cannot be trained using gradient descent","It requires a much larger dataset than linear regression"], ans:1, exp:"As polynomial degree increases, the model becomes increasingly flexible. A degree-50 polynomial, for example, will fit every noisy training point exactly (overfitting) rather than capturing the underlying smooth trend. The model memorizes noise instead of learning the pattern."},
+{chapter:'L04', q:"Why is feature scaling recommended for polynomial regression?", opts:["To ensure all features have the same number of unique values","Because large or small predictor values raised to high powers (e.g., the 20th power) become numerically problematic","To speed up the visualization of the data","So that the intercept β₀ is always equal to zero"], ans:1, exp:"In polynomial regression, predictors are raised to high powers. If the range of X is large or small, those values raised to the 20th power (or similar) can cause numerical instability. Standardizing X (subtracting mean, dividing by std dev) prevents this."},
+{chapter:'L04', q:"What does R² measure in the evaluation of a regression model?", opts:["The number of observations used to train the model","The proportion of variance in the response variable explained by the model","The average distance between predicted and actual values","The total number of parameters in the model"], ans:1, exp:"R² (R-squared) measures the proportion of total variance in Y that is explained by the regression model. An R² of 0.85, for example, means 85% of the variability in the response is explained by the model. A high R² does not automatically mean the model is appropriate."},
+{chapter:'L04', q:"What does the feature importance graph show in multiple linear regression?", opts:["The correlation between pairs of predictor variables","Which predictors have the most impact on the model's prediction","The distribution of residuals across all observations","The optimal polynomial degree for each predictor"], ans:1, exp:"When you have many predictors, looking at individual β values is impractical. A feature importance graph visualizes the magnitude of each β, showing which predictors have the greatest impact on the model's predictions. This helps with model interpretation."},
+
+// ────────── L05 ──────────
+{chapter:'L05', q:"What does it mean for k-NN to be a non-parametric algorithm?", opts:["It requires no training data to make predictions","It does not make any assumptions about the underlying data distribution","It can only be used when k equals 1","It always produces the same predictions regardless of the data"], ans:1, exp:"k-NN is non-parametric because it makes NO assumptions about the underlying data distribution. It does not assume that data follows any specific distribution (like Gaussian). Predictions are made purely based on the similarity to nearby training observations."},
+{chapter:'L05', q:"In k-NN regression, how is the prediction for a new data point calculated?", opts:["By fitting a line through the k nearest neighbors and reading off the value","By averaging the output values of the k nearest neighbors","By selecting the output of the single nearest neighbor and multiplying it by k","By computing the weighted sum using β coefficients from regression"], ans:1, exp:"In k-NN regression, to predict ŷq for a new point xq: (1) Find the k nearest neighbors based on distance, (2) Average their output values: ŷ = (1/K) Σ y^(nk). This is a straightforward average of the responses of the k most similar observations."},
+{chapter:'L05', q:"What is the difference between an inference problem and a prediction problem in machine learning?", opts:["Inference uses more data than prediction","In inference, understanding the form of f̂ is important; in prediction, we only care about accurate ŷ values","Inference is always more accurate than prediction","Prediction requires labeled data; inference does not"], ans:1, exp:"In inference problems, the goal is to understand the specific form of f̂ and interpret the relationship between predictors and response. In prediction problems, we just want ŷ as close to y as possible — the form of f̂ itself is not important."},
+{chapter:'L05', q:"What is a response variable (also called dependent or outcome variable)?", opts:["A variable used to make predictions about another variable","The variable whose value we want to predict","A variable that describes the noise or error in the model","A variable that has been normalized to have mean 0"], ans:1, exp:"The response variable (Y) is the variable whose value we want to predict. It is also called the dependent variable or outcome variable. The predictor variables (X) are used to make these predictions."},
+{chapter:'L05', q:"How does increasing k in k-NN typically affect the model's predictions?", opts:["Higher k makes predictions more sensitive to individual data points and increases variance","Higher k smooths out predictions by averaging more neighbors, reducing variance but potentially increasing bias","Higher k always improves model accuracy on both training and test data","Higher k makes the model more complex and prone to overfitting"], ans:1, exp:"As k increases, the prediction for any point is averaged over more neighbors, which smooths the decision boundary and reduces variance. However, very large k can lead to underfitting (high bias) because the average is taken over too many potentially irrelevant points. Small k is more sensitive to noise."},
+
+// ────────── L06 ──────────
+{chapter:'L06', q:"In a Decision Tree, what do leaf nodes represent?", opts:["Rules that test a feature value and split the data","The root of the tree where all training data begins","Final predictions made after all the splitting rules have been applied","The training examples associated with a particular branch"], ans:2, exp:"In a Decision Tree, root nodes and internal nodes contain rules that test feature values and split the data. Leaf nodes make the final predictions — they represent the terminal nodes where no further splitting occurs and a class or value is assigned."},
+{chapter:'L06', q:"What criterion does a Decision Tree use to select which feature to split on first (at the root node)?", opts:["The feature with the lowest variance across all data points","The feature with the highest information gain — i.e., the most informative feature that creates the most homogeneous sub-groups","The feature with the fewest unique values","The feature that appears first alphabetically in the dataset"], ans:1, exp:"The root node is chosen by selecting the feature with the HIGHEST information gain — the feature that best separates the training data into homogeneous groups. More informative features are tested earlier in the tree to maximize predictive power."},
+{chapter:'L06', q:"What does 'ensemble learning' mean?", opts:["Training a single, very complex model on the entire dataset","A machine learning paradigm where multiple learners are trained to solve the same problem and their decisions are combined","Using the same algorithm multiple times with different random seeds","Splitting the dataset into multiple parts and training a separate model on each part independently"], ans:1, exp:"Ensemble learning is a paradigm where multiple learners (weak classifiers) are trained to solve the same problem. Their individual decisions are then combined to produce a single, stronger prediction. The key principle is that diverse models, when combined, outperform any single model."},
+{chapter:'L06', q:"What does 'Bagging' stand for and what problem does it address?", opts:["Binary Aggregating — it handles imbalanced class distributions","Bootstrap Aggregating — it improves stability and accuracy and reduces variance to help avoid overfitting","Batch Aggregating — it splits data into batches for faster training","Backward Aggregating — it builds models in reverse order of importance"], ans:1, exp:"Bagging stands for Bootstrap + Aggregating. It is an ensemble meta-algorithm that improves stability and accuracy by training each model on a bootstrap sample (random sample with replacement) and then averaging (or voting) the predictions. It reduces variance and helps avoid overfitting."},
+{chapter:'L06', q:"What key innovation does Random Forest add over simple Bagging?", opts:["Random Forest uses a different base learner — support vector machines instead of decision trees","Random Forest randomly selects a subset of features at each split, decorrelating the individual trees","Random Forest uses more training data by oversampling the minority class","Random Forest assigns different weights to different training examples"], ans:1, exp:"The key innovation of Random Forest is the random selection of features at each split. While Bagging resamples observations, Random Forest ALSO randomly selects which features to consider at each split. This decorrelates the individual trees, making averaging more effective at reducing variance."},
+{chapter:'L06', q:"How does Boosting differ from Bagging?", opts:["Boosting uses regression trees; Bagging uses classification trees only","In Boosting, trees are grown sequentially — each tree uses information from previously grown trees (e.g., by fitting residuals); Bagging builds trees independently","Boosting only works for classification; Bagging only works for regression","Bagging is more accurate than Boosting in all cases"], ans:1, exp:"The fundamental difference is sequential vs. independent. In Bagging, each tree is built independently on a bootstrap sample. In Boosting (e.g., Gradient Boosting), trees are grown SEQUENTIALLY — each new tree models the errors (residuals) of the current ensemble, progressively reducing the error."},
+{chapter:'L06', q:"What does the learning rate λ control in Gradient Boosting?", opts:["The number of trees to include in the ensemble","The maximum depth of each individual decision tree","The step size at each iteration — a small λ means smaller updates and requires more trees; too large causes the algorithm to overshoot","The fraction of training data used at each boosting round"], ans:2, exp:"The learning rate λ controls how much each new tree contributes to the overall model. If λ is too small, convergence requires many more iterations. If λ is too large, the algorithm may 'bounce' around the optimum and never converge. Choosing an appropriate λ is a key hyperparameter tuning task."},
+{chapter:'L06', q:"What is a key con of Random Forest compared to a single Decision Tree?", opts:["Random Forest always overfits the training data","Random Forest is not easily interpretable, unlike a single Decision Tree which is simple to visualize and explain","Random Forest is slower at test time because it must compute distances","Random Forest cannot handle categorical features"], ans:1, exp:"A major drawback of Random Forest is that it is NOT easily interpretable. A single Decision Tree is simple and transparent — you can trace the path of any prediction. With hundreds of trees combined, the model becomes a 'black box', making it difficult to explain individual predictions."},
+{chapter:'L06', q:"What is the 'diversity' requirement in ensemble learning?", opts:["Each classifier must be trained on a completely different dataset","Classifiers must make independent (uncorrelated) errors; if all classifiers make the same mistake, combining them provides no benefit","Each classifier must use a different algorithm (e.g., one SVM, one decision tree, one neural network)","The ensemble must include at least one linear and one non-linear model"], ans:1, exp:"Diversity is critical. If all classifiers make the same mistakes, combining them does not help — you just get the same wrong answer. But if classifiers make mistakes INDEPENDENTLY (uncorrelated errors), random errors cancel each other out and correct decisions are reinforced. This is the 'wisdom of the crowd' effect."},
+
+// ────────── L07 ──────────
+{chapter:'L07', q:"What is 'unstructured data' as defined in the lecture?", opts:["Data stored in relational databases with well-defined schemas","Data that does not reside in traditional databases, may have internal structure but does not fit a relational data model, and includes text and multimedia","Data with a large number of missing values that must be imputed","Numerical data that has not been normalized or standardized"], ans:1, exp:"Unstructured data does not reside in traditional databases/data warehouses. While it may have internal structure, it does not fit a relational data model. Examples include emails, social media posts, web pages, audio/video files, and sensor output — i.e., text and multimedia."},
+{chapter:'L07', q:"What is web scraping?", opts:["Building and hosting a website using Python","Using programs to download or otherwise extract data from online sources, often much faster than manually copying data","A technique for encrypting web traffic to secure data transmission","Filtering spam emails using keyword detection"], ans:1, exp:"Web scraping is using programs (like Python's Requests and BeautifulSoup libraries) to download and extract data from online sources. It is much faster than manual copying, but comes with important legal and moral considerations."},
+{chapter:'L07', q:"What does EDGAR stand for and what is it used for?", opts:["Electronic Data Gathering, Analysis, and Retrieval system — used for accessing SEC filings","Electronic Data Generation, Analysis, and Reporting system — used for generating financial reports","Enhanced Data Gathering and Retrieval system — used for Bloomberg terminal data","Economic Data Gathering and Analysis Resource — used for macroeconomic data"], ans:0, exp:"EDGAR stands for Electronic Data Gathering, Analysis, and Retrieval system. It is the SEC's system for collecting, validating, and making publicly available company filings. Researchers can scrape EDGAR for 10-K and 8-K filings to extract information not readily available in existing databases."},
+{chapter:'L07', q:"What is Natural Language Processing (NLP)?", opts:["A hardware specification for processing large volumes of text","A subfield of AI focused on enabling computers to understand, interpret, and generate human language in a meaningful and useful way","A method for compressing large text datasets to reduce storage requirements","A technique for converting audio recordings into numerical data"], ans:1, exp:"NLP (Natural Language Processing) is a subfield of AI focused on interactions between computers and humans through natural language. The goal is to enable computers to understand, interpret, and generate human language in a meaningful and useful way — enabling tasks like sentiment analysis, translation, and Q&A."},
+{chapter:'L07', q:"What is tokenization in NLP?", opts:["Converting text into its ASCII numerical codes","Splitting text into individual units (tokens) such as words or subwords","Encrypting text data for secure storage","Assigning sentiment scores to individual words"], ans:1, exp:"Tokenization is the process of splitting text into individual tokens (typically words or subwords). It is a fundamental preprocessing step in NLP. Naive tokenization (using .split()) has limitations (case sensitivity, punctuation handling), so specialized tokenizers like NLTK's are used."},
+{chapter:'L07', q:"What does Part-of-Speech (POS) tagging determine?", opts:["The frequency of each word in the document","The grammatical category of each word (e.g., noun, verb, adjective, proper name)","The overall sentiment of a sentence as positive or negative","The language in which a document was written"], ans:1, exp:"POS tagging assigns grammatical labels to each token: is it a noun, verb, adjective, proper name, etc.? Knowing a token's POS tells you its role in the sentence (subject, verb, etc.) and can be useful for tasks like masking a firm's identity before feeding text to an AI model."},
+{chapter:'L07', q:"What are regular expressions used for in text processing?", opts:["Building hierarchical tree structures from unstructured text","Finding words or phrases matching a pattern in text, then replacing them or extracting the matched content","Converting unstructured text into a relational database format","Measuring the readability score of a document"], ans:1, exp:"Regular expressions allow you to search for patterns in text (e.g., 'a sequence of letters followed by a hashtag symbol'). Once found, you can either extract the matching content (e.g., extract all hashtags from a tweet) or replace it (e.g., remove punctuation). Python's re module implements regex."},
+{chapter:'L07', q:"According to the Evolution of NLP in the lecture, which development came FIRST chronologically?", opts:["Transformers ('Attention Is All You Need')","Word2Vec — efficient word embeddings","LSTMs — solving the 'forgetting' problem with memory gates","RNNs — sequence processing models"], ans:3, exp:"The evolution presented is: 1980s RNNs → 1997 LSTMs → 2013 Word2Vec → 2017 Transformers → 2020s LLMs. RNNs were the earliest sequence processing models, followed by LSTMs which solved the long-range memory problem, then Word2Vec's efficient embeddings, Transformers, and modern LLMs."},
+
+// ────────── L08 ──────────
+{chapter:'L08', q:"What biological structure inspired artificial neural networks?", opts:["The structure of DNA and genetic information","The biological nervous system — particularly the human brain with its highly interconnected neurons","The cardiovascular system with its network of arteries and veins","The immune system with its distributed defense mechanisms"], ans:1, exp:"Artificial Neural Networks (ANNs) are an information processing paradigm inspired by biological nervous systems, particularly the brain. The structure — large numbers of highly interconnected processing elements (neurons) — and the idea of learning from examples are both drawn from neuroscience."},
+{chapter:'L08', q:"What is the role of activation functions in a neural network?", opts:["To initialize the weights of the network before training begins","To introduce non-linearity into the network, allowing it to learn complex relationships between inputs and outputs","To determine the learning rate used during gradient descent","To select which neurons are included in the hidden layers"], ans:1, exp:"Activation functions introduce non-linearity into the neural network. Without them, a neural network would just be a series of linear transformations (equivalent to a single linear model). Non-linearity allows the network to learn complex, non-linear mappings between inputs and outputs."},
+{chapter:'L08', q:"What is backpropagation?", opts:["The forward pass through the network that computes the prediction","The process of propagating gradients of the loss backward through the network to adjust weights during training","A regularization technique that prevents overfitting by dropping random neurons","The process of evaluating the model on test data after training is complete"], ans:1, exp:"Backpropagation is the algorithm used to train neural networks. After the loss is calculated (forward pass), gradients of the loss are propagated BACKWARD through the network. These gradients indicate how each weight should be adjusted to minimize the loss, and gradient descent is then applied."},
+{chapter:'L08', q:"Why is ReLU (Rectified Linear Unit) generally preferred over sigmoid in hidden layers?", opts:["ReLU produces outputs in the range [0,1] which is required for probability outputs","ReLU is computationally efficient and performs better in practice; sigmoid can suffer from the vanishing gradient problem in deep networks","ReLU always produces sparse activations which reduces overfitting","Sigmoid can only be used in the output layer; ReLU is for hidden layers"], ans:1, exp:"ReLU and its variants are preferred in hidden layers because of computational efficiency and better empirical performance. Sigmoid (and tanh) suffer from the vanishing gradient problem in deep networks — gradients become very small, making learning slow. Sigmoid/softmax are used in output layers for classification."},
+{chapter:'L08', q:"What does Word2Vec capture about words?", opts:["The exact frequency of each word across all documents in a corpus","Vector representations (embeddings) that capture semantic relationships between words, such that similar words have similar vectors","The grammatical part-of-speech tag for each word in a sentence","The phonetic pronunciation of words for speech recognition tasks"], ans:1, exp:"Word2Vec represents words as vectors (embeddings) in a high-dimensional space. The key insight is that words with similar meanings or contexts end up with similar vectors. This captures semantic relationships — e.g., vector('king') - vector('man') + vector('woman') ≈ vector('queen')."},
+{chapter:'L08', q:"What is deep learning?", opts:["Machine learning applied specifically to structured tabular data","Neural networks with multiple hidden layers (deep neural networks) that excel at complex tasks and large datasets","A special type of k-NN that uses cosine distance instead of Euclidean distance","An ensemble of decision trees with more than 1,000 estimators"], ans:1, exp:"Deep learning refers to neural networks with MULTIPLE hidden layers (deep neural networks). The 'depth' of the network enables it to learn hierarchical representations. Deep learning excels at complex tasks (image recognition, NLP, game playing) and handling large datasets."},
+{chapter:'L08', q:"What are the three main components of a biological neuron that inspired artificial neural network design?", opts:["Nucleus, membrane, and mitochondria","Dendrites (receive signals), soma/cell body (sums signals), and axon (transmits output signal)","Proteins, lipids, and nucleic acids","Synapses, vesicles, and receptors"], ans:1, exp:"The three key components are: (1) Dendrites — receive signals from other neurons; (2) Soma (cell body) — sums the incoming signals, and fires when sufficient input is received; (3) Axon — transmits the output signal to other neurons. These map directly to artificial neuron inputs, summation, and output."},
+{chapter:'L08', q:"What is the function of the output layer in a neural network for multi-class classification?", opts:["A single node with a ReLU activation function","Multiple nodes (one per class) typically using a softmax activation to produce a probability distribution over classes","A hidden layer with sigmoid activations that feeds into the final prediction","A single node with a linear activation that outputs a continuous value"], ans:1, exp:"For multi-class classification, the output layer has multiple nodes — one per class. Softmax is used as the activation function, converting the raw scores into a probability distribution (summing to 1) over all classes. The class with the highest probability is the final prediction."},
+
+// ────────── L09 ──────────
+{chapter:'L09', q:"What is a Large Language Model (LLM)?", opts:["A database system optimized for storing large amounts of text","An AI model trained on vast amounts of textual data that understands and generates human language using sophisticated algorithms","A search engine that indexes and retrieves documents from the web","A specialized model that only works with structured tabular data"], ans:1, exp:"A Large Language Model (LLM) is an AI model that understands and generates human language. It is trained on vast amounts of textual data and uses sophisticated algorithms (typically transformer architectures) to predict and generate text."},
+{chapter:'L09', q:"What is ChatGPT, according to the lecture?", opts:["A search engine developed by OpenAI that retrieves web pages","An AI-powered chatbot that leverages LLMs to understand and generate human-like text, launched in November 2022","A database management system for storing conversational data","A voice assistant developed by Microsoft"], ans:1, exp:"ChatGPT ('Chat Generative Pre-Trained Transformer') is an AI-powered chatbot developed by OpenAI, launched in November 2022. It became the fastest-growing consumer software application in history and leverages LLMs to understand and generate human-like text."},
+{chapter:'L09', q:"What is ChatGPT explicitly NOT, according to the lecture?", opts:["A system trained on large amounts of text data","A model capable of generating coherent text based on prompts","A search engine, a human, or an infallible source of information","A model using transformer architecture with self-attention"], ans:2, exp:"The lecture explicitly states ChatGPT is NOT: a search engine, a human (no experiences, emotions, consciousness, reasoning, or understanding), infallible (can provide inaccurate or misleading information), able to learn in real time, or suitable for personal/legal/medical/financial advice."},
+{chapter:'L09', q:"What is an API (Application Programming Interface)?", opts:["A programming language designed for web development","A set of rules and protocols that allow different software applications to communicate with each other","A database that stores information about user interactions","A type of neural network architecture used for natural language processing"], ans:1, exp:"An API is a set of rules and protocols that allow different software applications to communicate. It acts as an intermediary/bridge between systems (client and server), facilitates standardized data exchange, and enables automation and integration without exposing internal logic."},
+{chapter:'L09', q:"What is Generative AI (GenAI)?", opts:["AI that analyzes existing data without producing new outputs","A type of AI that learns patterns from existing data and uses that knowledge to generate new content (text, images, video, audio, code)","AI systems specifically designed for robotics and physical automation","AI that only classifies input data into predefined categories"], ans:1, exp:"Generative AI is a type of AI that GENERATES new content. It learns patterns from existing data and uses that knowledge to create new outputs. GenAI can generate text, images, video, audio, and code — as demonstrated by models like GPT, DALL-E, and Sora."},
+{chapter:'L09', q:"What does 'GPT' stand for and what is its core mechanism?", opts:["General Processing Technology — uses parallel processing of all tokens","Generative Pre-trained Transformer — predicts the next word in a sequence to generate coherent, contextually relevant text","Graphical Pattern Training — uses image data to generate text descriptions","Global Parameter Tuning — optimizes model parameters using reinforcement learning"], ans:1, exp:"GPT stands for Generative Pre-trained Transformer. The core mechanism is predicting the NEXT word (token) in a sequence. By doing this at massive scale, the model learns grammar, facts, reasoning, and language patterns, enabling it to generate coherent and contextually relevant text."},
+{chapter:'L09', q:"What is a key advantage of open-source LLMs compared to proprietary models?", opts:["Open-source models always outperform proprietary models on benchmarks","Open-source LLMs offer cost-effective customization, transparency in architecture and data, and community-driven innovation","Open-source models have larger context windows than proprietary models","Open-source models require no computational infrastructure to deploy"], ans:1, exp:"The lecture highlights three advantages of open-source LLMs: (1) cost-effective customization, (2) transparency in architecture and data sources, and (3) community-driven innovation. Examples include Meta's LLaMA 2, Hugging Face's BLOOM and Falcon 40B, and Mistral 7B."},
+
+// ────────── L10 ──────────
+{chapter:'L10', q:"What is the self-attention mechanism in transformer architecture?", opts:["A mechanism that processes tokens one at a time, from left to right","A mechanism where every word in a sentence is compared with every other word to determine their relative relevance, assigning different weights based on context","A technique for randomly masking words during training to improve robustness","A method for compressing long sequences into a fixed-size representation"], ans:1, exp:"Self-attention compares EVERY word in a sentence with every other word simultaneously to determine relevance. For example, in 'The cat chased the mouse,' 'chased' is more related to 'cat' and 'mouse' than to 'the.' The model assigns weights based on contextual relevance."},
+{chapter:'L10', q:"What is the key difference between BERT (encoder-only) and GPT (decoder-only) models?", opts:["BERT is larger than GPT; GPT is smaller but faster","BERT uses bidirectional attention (sees all tokens simultaneously) making it better for understanding/classification; GPT uses causal/masked attention (only sees past tokens) making it suitable for text generation","BERT requires fine-tuning; GPT requires zero fine-tuning for all tasks","BERT generates images; GPT generates text"], ans:1, exp:"BERT is bidirectional — every token attends to ALL other tokens (past and future) simultaneously, giving better understanding of context. GPT is causal/masked — each token only sees PREVIOUS tokens, which is necessary for autoregressive text generation. BERT excels at classification/embeddings; GPT at generation."},
+{chapter:'L10', q:"What is 'prompt engineering'?", opts:["The process of collecting and cleaning large datasets for LLM training","The craft of designing and optimizing inputs (prompts) to maximize the quality and relevance of generative AI outputs","The process of fine-tuning a pre-trained model on domain-specific data","The architecture design of transformer models with multiple attention heads"], ans:1, exp:"Prompt engineering is the practice of crafting inputs to optimize generative AI outputs. It is an emerging career field. Effective prompts are clear, provide background and context, use examples, specify the desired format, and often include role, task, constraints, and goals."},
+{chapter:'L10', q:"What is Chain-of-Thought (CoT) prompting?", opts:["Prompting the model to give very short one-sentence answers","Including intermediate reasoning steps in the prompt so the model is guided to reason step-by-step before giving a final answer, improving accuracy on complex tasks","A technique that chains multiple LLMs together, each solving a sub-problem","A method of combining few-shot examples with retrieval-augmented generation"], ans:1, exp:"Chain-of-Thought prompting includes intermediate reasoning steps in the prompt, guiding the LLM to reason step-by-step. This dramatically improves performance on complex multi-step tasks (math, logic, financial analysis). It also improves interpretability because you can audit the model's reasoning. A simple trick: add 'Think step by step.'"},
+{chapter:'L10', q:"What is Retrieval-Augmented Generation (RAG)?", opts:["A technique where the LLM is fully retrained on new documents whenever the knowledge base is updated","A process that retrieves relevant documents from an external knowledge base at query time and augments the LLM's prompt with that information before generating a response","A model architecture that combines a retrieval model and a generative model trained jointly end-to-end","A method for compressing large LLMs by removing less important parameters"], ans:1, exp:"RAG optimizes LLM output by referencing an authoritative knowledge base OUTSIDE its training data. The process: (1) RETRIEVE — embed the query and find relevant document chunks via similarity search; (2) AUGMENT — add retrieved info to the prompt; (3) GENERATE — the LLM answers using the augmented context."},
+{chapter:'L10', q:"What is 'temperature' in the context of LLM text generation?", opts:["The physical temperature at which GPU hardware operates during inference","A parameter that controls the randomness of token selection: T→0 is deterministic, T=1 is default balanced, T>1 increases randomness and creativity","The number of tokens generated per second by the model","A measure of how 'hot' a topic is based on the frequency of its discussion online"], ans:1, exp:"Temperature T rescales the probability distribution over possible next tokens. T→0 makes the model deterministic (always picks the most likely token — good for factual Q&A). T=1 is the default (balanced). T>1 makes the distribution flatter, increasing randomness and creativity but also risk of hallucination."},
+{chapter:'L10', q:"What is the difference between 'tool calling' and 'agentic AI'?", opts:["Tool calling is for text tasks; agentic AI is for image tasks","Tool calling is single-turn execution triggered by the user for each call; agentic AI is multi-step autonomous loops where the model self-directs to achieve a goal, persisting context and adapting its plan","Agentic AI is a simpler version of tool calling with fewer capabilities","Tool calling requires internet access; agentic AI works offline"], ans:1, exp:"Tool calling is single-turn execution — the user triggers each call, there's no memory between steps, and the workflow is predefined. Agentic AI operates in multi-step autonomous loops — it self-directs to achieve a goal, persists context across steps, and adapts its plan based on feedback and observations."},
+{chapter:'L10', q:"What is the ReAct cycle in agentic AI?", opts:["Read → Evaluate → Apply → Check","Think → Act → Observe → Repeat (loop until goal is achieved)","Request → Execute → Analyze → Confirm","Retrieve → Embed → Attend → Classify"], ans:1, exp:"The ReAct (Reason + Act) cycle is the core loop in agentic AI: (1) THINK — plan what action to take; (2) ACT — call a tool or execute an action; (3) OBSERVE — examine the result; (4) LOOP — if the goal is not yet met, think again; otherwise OUTPUT the final result. This cycle repeats until the goal is achieved."},
+{chapter:'L10', q:"What is 'context rot' as mentioned in the lecture?", opts:["The gradual degradation of the training dataset over time due to outdated information","A phenomenon where LLM performance degrades when the context window is very long, as the model loses focus on relevant parts of the input","The process of removing irrelevant tokens from a prompt before sending it to the LLM","The tendency of models to repeat the same phrases when generating long outputs"], ans:1, exp:"Context rot refers to the phenomenon where LLM performance degrades with very long contexts. Even though modern models have very large context windows (up to 1M+ tokens), feeding extremely long documents causes the model to lose focus on relevant parts ('lost in the middle' problem), degrading output quality."},
+{chapter:'L10', q:"What is the paradigm shift from traditional ML to the LLM era?", opts:["Traditional ML uses GPUs; LLMs use CPUs","Traditional ML trains a separate model for each task from scratch; LLMs represent a single giant model that handles many tasks — often with no fine-tuning — just by prompting","Traditional ML requires more data than LLMs; LLMs work well with very small datasets","Traditional ML models are always more accurate than LLMs on specialized tasks"], ans:1, exp:"The paradigm shift: Traditional ML trains a SEPARATE model for EACH task from scratch. Transfer Learning pretrains once then fine-tunes for specific tasks. The LLM Era has ONE giant model (e.g., GPT-4) handling many tasks — spam detection, sentiment analysis, translation, code generation — often with NO fine-tuning, just prompting."},
+];
+
+// ── State ──
+let selectedChapters = new Set();
+let activeQuestions = [];
+let currentIdx = 0;
+let score = 0;
+let answered = false;
+let chapterStats = {};
+let currentMode = 'quiz'; // 'quiz' | 'flash'
+
+// ── Flashcard State ──
+let fcCards = [];
+let fcIdx = 0;
+
+// ── Chapter Question Counts ──
+const chapterCounts = {};
+ALL_QUESTIONS.forEach(q => {
+  chapterCounts[q.chapter] = (chapterCounts[q.chapter] || 0) + 1;
+});
+
+// ── Build Chapter UI ──
+function buildChapterGrid() {
+  const grid = document.getElementById('chaptersGrid');
+  grid.innerHTML = '';
+  CHAPTERS.forEach(ch => {
+    const count = chapterCounts[ch.id] || 0;
+    const div = document.createElement('div');
+    div.className = 'chapter-card';
+    div.dataset.id = ch.id;
+    div.innerHTML = `<div class="chapter-num">${ch.id}</div>
+      <div class="chapter-name">${ch.name}</div>
+      <div class="chapter-count">${count} question${count !== 1 ? 's' : ''}</div>`;
+    div.onclick = () => toggleChapter(ch.id, div);
+    grid.appendChild(div);
+  });
+}
+
+function toggleChapter(id, el) {
+  if (selectedChapters.has(id)) {
+    selectedChapters.delete(id);
+    el.classList.remove('selected');
+  } else {
+    selectedChapters.add(id);
+    el.classList.add('selected');
+  }
+  updateStartBtn();
+}
+
+function selectAll() {
+  CHAPTERS.forEach(ch => selectedChapters.add(ch.id));
+  document.querySelectorAll('.chapter-card').forEach(c => c.classList.add('selected'));
+  updateStartBtn();
+}
+
+function clearAll() {
+  selectedChapters.clear();
+  document.querySelectorAll('.chapter-card').forEach(c => c.classList.remove('selected'));
+  updateStartBtn();
+}
+
+function updateStartBtn() {
+  document.getElementById('startBtn').disabled = selectedChapters.size === 0;
+}
+
+function setMode(mode) {
+  currentMode = mode;
+  document.getElementById('modeQuiz').classList.toggle('active', mode === 'quiz');
+  document.getElementById('modeFlash').classList.toggle('active', mode === 'flash');
+  document.getElementById('startBtn').textContent =
+    mode === 'quiz' ? 'Begin Quiz' : 'Begin Flashcards';
+}
+
+function startSession() {
+  if (currentMode === 'flash') startFlashcards();
+  else startQuiz();
+}
+
+// ── Shuffle ──
+function shuffle(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+// ── Start Quiz ──
+function startQuiz() {
+  const pool = ALL_QUESTIONS.filter(q => selectedChapters.has(q.chapter));
+  activeQuestions = shuffle(pool).map(q => {
+    // Shuffle options while tracking correct answer
+    const indices = [0,1,2,3];
+    const shuffled = shuffle(indices);
+    const newOpts = shuffled.map(i => q.opts[i]);
+    const newAns = shuffled.indexOf(q.ans);
+    return { ...q, opts: newOpts, ans: newAns };
+  });
+
+  currentIdx = 0;
+  score = 0;
+  chapterStats = {};
+  selectedChapters.forEach(c => {
+    chapterStats[c] = { correct: 0, total: 0 };
+  });
+
+  showScreen('quiz');
+  renderQuestion();
+}
+
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+// ── Render Question ──
+function renderQuestion() {
+  const q = activeQuestions[currentIdx];
+  answered = false;
+
+  // Update header
+  document.getElementById('progressText').textContent =
+    `Question ${currentIdx + 1} of ${activeQuestions.length}`;
+  document.getElementById('progressFill').style.width =
+    `${((currentIdx) / activeQuestions.length) * 100}%`;
+
+  // Chapter tag
+  const chInfo = CHAPTERS.find(c => c.id === q.chapter);
+  document.getElementById('chapterTag').textContent = chInfo ? chInfo.name : q.chapter;
+
+  // Question
+  document.getElementById('questionText').textContent = q.q;
+
+  // Options
+  const container = document.getElementById('optionsContainer');
+  container.innerHTML = '';
+  const letters = ['A','B','C','D'];
+  q.opts.forEach((opt, i) => {
+    const div = document.createElement('div');
+    div.className = 'option';
+    div.innerHTML = `<div class="opt-letter">${letters[i]}</div><div>${opt}</div>`;
+    div.onclick = () => selectAnswer(i);
+    container.appendChild(div);
+  });
+
+  // Explanation
+  const exp = document.getElementById('explanationBox');
+  exp.classList.remove('show');
+  exp.innerHTML = '';
+
+  // Next button
+  document.getElementById('nextBtn').style.display = 'none';
+}
+
+function selectAnswer(chosen) {
+  if (answered) return;
+  answered = true;
+
+  const q = activeQuestions[currentIdx];
+  const options = document.querySelectorAll('.option');
+
+  options.forEach((el, i) => {
+    el.classList.add('disabled');
+    if (i === q.ans) el.classList.add('correct');
+    else if (i === chosen && chosen !== q.ans) el.classList.add('wrong');
+  });
+
+  // Track stats
+  chapterStats[q.chapter] = chapterStats[q.chapter] || { correct: 0, total: 0 };
+  chapterStats[q.chapter].total++;
+  if (chosen === q.ans) {
+    score++;
+    chapterStats[q.chapter].correct++;
+  }
+
+  // Show explanation
+  const exp = document.getElementById('explanationBox');
+  const isCorrect = chosen === q.ans;
+  exp.innerHTML = `<strong>${isCorrect ? '✓ Correct!' : '✗ Incorrect.'}</strong> ${q.exp}`;
+  exp.classList.add('show');
+
+  // Show next button
+  const nextBtn = document.getElementById('nextBtn');
+  nextBtn.style.display = 'inline-block';
+  if (currentIdx === activeQuestions.length - 1) {
+    nextBtn.textContent = 'See Results';
+  } else {
+    nextBtn.textContent = 'Next →';
+  }
+}
+
+function nextQuestion() {
+  if (currentIdx < activeQuestions.length - 1) {
+    currentIdx++;
+    renderQuestion();
+    window.scrollTo(0, 0);
+  } else {
+    showResults();
+  }
+}
+
+function finishEarly() {
+  if (confirm('Are you sure you want to end the quiz early?')) {
+    showResults();
+  }
+}
+
+// ── Results ──
+function showResults() {
+  const total = currentIdx + (answered ? 1 : 0);
+  const pct = total > 0 ? Math.round((score / total) * 100) : 0;
+  const deg = Math.round((pct / 100) * 360);
+
+  // Ring
+  const ring = document.getElementById('scoreRing');
+  ring.style.setProperty('--pct', deg + 'deg');
+  document.getElementById('scoreNum').textContent = pct + '%';
+
+  // Badge & title
+  let badge, title, sub;
+  if (pct >= 90) {
+    badge = '🏆 Distinction'; document.getElementById('badgeEl').className = 'badge gold';
+    title = 'Outstanding Performance!';
+  } else if (pct >= 75) {
+    badge = '⭐ Merit'; document.getElementById('badgeEl').className = 'badge silver';
+    title = 'Great Work!';
+  } else if (pct >= 60) {
+    badge = '✓ Pass'; document.getElementById('badgeEl').className = 'badge bronze';
+    title = 'Keep Practising!';
+  } else {
+    badge = '📚 Study More'; document.getElementById('badgeEl').className = 'badge bronze';
+    title = 'Keep Going!';
+  }
+  document.getElementById('badgeEl').textContent = badge;
+  document.getElementById('resultsTitle').textContent = title;
+  document.getElementById('resultsSub').textContent =
+    `You scored ${score} out of ${total} question${total !== 1 ? 's' : ''}.`;
+
+  // Chapter breakdown
+  const bd = document.getElementById('breakdownEl');
+  bd.innerHTML = '';
+  Object.keys(chapterStats).forEach(cid => {
+    const st = chapterStats[cid];
+    if (st.total === 0) return;
+    const chInfo = CHAPTERS.find(c => c.id === cid);
+    const p = Math.round((st.correct / st.total) * 100);
+    const row = document.createElement('div');
+    row.className = 'breakdown-row';
+    row.innerHTML = `
+      <div class="breakdown-name">${chInfo ? chInfo.short : cid} — ${chInfo ? chInfo.name.split(' ')[0] : ''}</div>
+      <div class="mini-bar"><div class="mini-fill" style="width:${p}%"></div></div>
+      <div class="breakdown-score">${st.correct}/${st.total} (${p}%)</div>`;
+    bd.appendChild(row);
+  });
+
+  showScreen('results');
+}
+
+function retakeQuiz() {
+  startQuiz();
+}
+
+function goHome() {
+  showScreen('welcome');
+}
+
+// ── Flashcard Logic ──
+function startFlashcards() {
+  const pool = ALL_QUESTIONS.filter(q => selectedChapters.has(q.chapter));
+  fcCards = shuffle(pool);
+  fcIdx = 0;
+  showScreen('flashcards');
+  renderFlashcard();
+}
+
+function renderFlashcard() {
+  const card = fcCards[fcIdx];
+  const total = fcCards.length;
+
+  // Reset flip
+  document.getElementById('flipCard').classList.remove('flipped');
+
+  // Header / progress
+  document.getElementById('fcProgressText').textContent =
+    `Card ${fcIdx + 1} of ${total}`;
+  document.getElementById('fcProgressFill').style.width =
+    `${((fcIdx) / total) * 100}%`;
+  document.getElementById('fcCounter').textContent = `${fcIdx + 1} / ${total}`;
+
+  // Chapter tag
+  const chInfo = CHAPTERS.find(c => c.id === card.chapter);
+  document.getElementById('fcChapterTag').textContent = chInfo ? chInfo.name : card.chapter;
+
+  // Front: question
+  document.getElementById('fcQuestion').textContent = card.q;
+
+  // Back: correct answer + explanation
+  document.getElementById('fcAnswer').textContent = card.opts[card.ans];
+  document.getElementById('fcExplanation').textContent = card.exp;
+}
+
+function flipCard() {
+  document.getElementById('flipCard').classList.toggle('flipped');
+}
+
+function fcNext() {
+  if (fcIdx < fcCards.length - 1) { fcIdx++; renderFlashcard(); }
+}
+
+function fcPrev() {
+  if (fcIdx > 0) { fcIdx--; renderFlashcard(); }
+}
+
+function fcShuffle() {
+  fcCards = shuffle(fcCards);
+  fcIdx = 0;
+  renderFlashcard();
+}
+
+// Keyboard shortcuts for flashcards
+document.addEventListener('keydown', e => {
+  const fc = document.getElementById('flashcards');
+  if (!fc.classList.contains('active')) return;
+  if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); flipCard(); }
+  else if (e.key === 'ArrowRight') fcNext();
+  else if (e.key === 'ArrowLeft') fcPrev();
+});
+
+// ── Init ──
+buildChapterGrid();
+</script>
+</body>
+</html>
